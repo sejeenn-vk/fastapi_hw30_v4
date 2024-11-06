@@ -24,4 +24,3 @@ class IngredientsInRecipe(Base):
             f"IngredientsInRecipe(recipe_id={self.recipe_id}, "
             f"ingredient_id={self.ingredient_id}, quantity={self.quantity})"
         )
-    
