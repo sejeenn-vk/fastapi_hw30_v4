@@ -2,6 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from core.config import settings
+from core.models.db_helper import db_helper
 
 
 @asynccontextmanager
