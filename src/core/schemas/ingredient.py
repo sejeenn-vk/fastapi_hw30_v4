@@ -2,8 +2,8 @@ from pydantic import BaseModel, ConfigDict
 
 
 class IngredientBase(BaseModel):
-    ingredient_name: str
-    ingredient_description: str | None
+    ingredient_name: str = "Мука (Наименование)"
+    ingredient_description: str = "Пшеничная, высший сорт. (Описание)"
 
 
 class IngredientCreate(IngredientBase):

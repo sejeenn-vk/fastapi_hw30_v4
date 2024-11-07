@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, List
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -12,10 +12,16 @@ ingredient_route = APIRouter()
 
 @ingredient_route.get(
     "/ingredients", tags=["Вывести список ингредиентов"],
-    response_model=IngredientRead
+    response_model=List[IngredientRead]
 )
-async def get_all_ingredients():
-    return
+async def get_all_ingredients(
+        session: Annotated[
+        AsyncSession,
+        Depends(db_helper.session_getter),
+        ],
+):
+    ingredients = await ingredient_crud.get_all_ingredients(session=session)
+    return ingredients
 
 
 @ingredient_route.post(
