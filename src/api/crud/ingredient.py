@@ -4,13 +4,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from core.models import Ingredient
 from core.schemas.ingredient import IngredientCreate
 
-#
-# async def get_all_users(
-#         session: AsyncSession,
-# ) -> Sequence[User]:
-#     stmt = select(User).order_by(User.id)
-#     result = await session.scalars(stmt)
-#     return result.all()
+
+async def get_all_ingredients(
+        session: AsyncSession,
+) -> Sequence[Ingredient]:
+    stmt = select(Ingredient).order_by(Ingredient.id)
+    result = await session.scalars(stmt)
+    return result.all()
 
 
 async def create_ingredient(
@@ -20,5 +20,4 @@ async def create_ingredient(
     ingredient = Ingredient(**ingredient_create.model_dump())
     session.add(ingredient)
     await session.commit()
-    # await session.refresh(user)
     return ingredient
