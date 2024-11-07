@@ -3,7 +3,7 @@ from typing import Annotated, List
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.models import db_helper, Ingredient
+from core.models import db_helper
 from core.schemas.ingredient import IngredientRead, IngredientCreate
 from api.crud import ingredient as ingredient_crud
 
