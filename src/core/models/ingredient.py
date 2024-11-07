@@ -19,8 +19,9 @@ class Ingredient(IntIdPkMixin, Base):
     ingredient_description: Mapped[str | None]
 
     used_in_recipe: Mapped[List["Recipe"]] = relationship(
-        back_populates="used_ingredients", secondary="ingredients_in_recipe"
+        back_populates="used_ingredients", secondary="ingredients_in_recipes"
     )
 
     def __repr__(self):
-        return f"Recipe(id={self.id}, name={self.ingredient_name})"
+        return (f"Ingredient(id={self.id}, ingredient_name={self.ingredient_name}, "
+                f"ingredient_description={self.ingredient_description})")

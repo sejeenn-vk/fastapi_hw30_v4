@@ -21,7 +21,7 @@ class Recipe(IntIdPkMixin, Base):
     )
 
     used_ingredients: Mapped[List["Ingredient"]] = relationship(
-        back_populates="used_in_recipe", secondary="ingredients_in_recipe"
+        back_populates="used_in_recipe", secondary="ingredients_in_recipes"
     )
 
     def __repr__(self):

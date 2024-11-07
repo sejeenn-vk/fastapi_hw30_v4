@@ -7,7 +7,7 @@ class IngredientBase(BaseModel):
 
 
 class IngredientCreate(IngredientBase):
-    ...
+    pass
 
 
 class IngredientRead(IngredientBase):
