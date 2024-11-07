@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from core.config import settings
 from core.models.db_helper import db_helper
 from api.main_page import main_route
-from api.recipes import recipe_route
+from api.recipe import recipe_route
 from api.ingredient import ingredient_route
 
 
