@@ -1,9 +1,13 @@
-from typing import List
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from typing import List, TYPE_CHECKING
+
 from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 from .base import Base
-from .recipe import Recipe
 from .mixins.int_id_pk import IntIdPkMixin
+
+if TYPE_CHECKING:
+    from .recipe import Recipe
 
 
 class Ingredient(IntIdPkMixin, Base):
@@ -11,11 +15,10 @@ class Ingredient(IntIdPkMixin, Base):
     Класс, описывающий ингредиенты, входящие в рецепт
     """
 
-    id: Mapped[int] = mapped_column(primary_key=True)
     ingredient_name: Mapped[str] = mapped_column(String(100))
     ingredient_description: Mapped[str | None]
 
-    used_in_recipe: Mapped[List[Recipe]] = relationship(
+    used_in_recipe: Mapped[List["Recipe"]] = relationship(
         back_populates="used_ingredients", secondary="ingredients_in_recipe"
     )
 
