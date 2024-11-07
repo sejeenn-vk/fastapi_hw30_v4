@@ -15,7 +15,7 @@ class IngredientsInRecipe(BaseModel):
 
 
 class RecipeCreate(RecipeBase):
-    ingredients_in_recipe: List[IngredientsInRecipe]
+    ingredients: List[IngredientsInRecipe]
 
 
 class RecipeRead(RecipeBase):
@@ -23,3 +23,19 @@ class RecipeRead(RecipeBase):
         from_attributes=True,
     )
     id: int
+
+
+class Ingredient(BaseModel):
+    name: str
+    description: str | None
+    quantity: str | None
+
+
+class RecipeDetail(BaseModel):
+    id: int
+    recipe_name: str
+    cooking_time: int
+    recipe_description: str
+    views: int
+    ingredients: List[Ingredient]
+
