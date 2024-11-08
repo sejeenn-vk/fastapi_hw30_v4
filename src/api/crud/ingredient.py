@@ -1,12 +1,14 @@
 from typing import Sequence
+
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+
 from core.models import Ingredient
 from core.schemas.ingredient import IngredientCreate
 
 
 async def get_all_ingredients(
-        session: AsyncSession,
+    session: AsyncSession,
 ) -> Sequence[Ingredient]:
     stmt = select(Ingredient).order_by(Ingredient.id)
     result = await session.scalars(stmt)
@@ -14,8 +16,8 @@ async def get_all_ingredients(
 
 
 async def create_ingredient(
-        session: AsyncSession,
-        ingredient_create: IngredientCreate,
+    session: AsyncSession,
+    ingredient_create: IngredientCreate,
 ) -> Ingredient:
     ingredient = Ingredient(**ingredient_create.model_dump())
     session.add(ingredient)

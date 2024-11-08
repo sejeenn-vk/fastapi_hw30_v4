@@ -1,4 +1,4 @@
-from typing import List, TYPE_CHECKING
+from typing import TYPE_CHECKING, List
 
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -23,5 +23,7 @@ class Ingredient(IntIdPkMixin, Base):
     )
 
     def __repr__(self):
-        return (f"Ingredient(id={self.id}, ingredient_name={self.ingredient_name}, "
-                f"ingredient_description={self.ingredient_description})")
+        return (
+            f"Ingredient(id={self.id}, ingredient_name={self.ingredient_name},"
+            f"ingredient_description={self.ingredient_description})"
+        )

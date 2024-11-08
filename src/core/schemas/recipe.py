@@ -1,5 +1,6 @@
+from typing import List
+
 from pydantic import BaseModel, ConfigDict
-from typing import List, Dict
 
 
 class RecipeBase(BaseModel):
@@ -38,4 +39,3 @@ class RecipeDetail(BaseModel):
     recipe_description: str
     views: int
     ingredients: List[Ingredient]
-
