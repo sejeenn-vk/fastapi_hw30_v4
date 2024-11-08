@@ -69,7 +69,7 @@ async def create_recipe(
     session.add(recipe)
     await session.flush()
     ingredients_in_recipe = []
-    for item in data['ingredients_in_recipe']:
+    for item in data['ingredients']:
         ingredients_in_recipe.append(
             IngredientsInRecipe(
                 recipe_id=recipe.id,
