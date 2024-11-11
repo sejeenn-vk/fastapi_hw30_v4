@@ -4,11 +4,14 @@ import pytest_asyncio
 
 from fastapi.testclient import TestClient
 from httpx import AsyncClient, ASGITransport
+from sqlalchemy import insert
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from sqlalchemy.pool import NullPool
 from main import main_app
 from core.models.base import Base
 from core.models.ingredient import Ingredient
+from core.models.recipe import Recipe
+from core.models.ingredient_in_recipe import IngredientsInRecipe
 from core.models.db_helper import db_helper
 
 
@@ -21,19 +24,36 @@ async def override_get_async_session() -> AsyncGenerator[AsyncSession, None]:
     async with async_session() as session:
         yield session
 
-main_app.dependency_overrides[db_helper.session_getter] = override_get_async_session
+main_app.dependency_overrides[db_helper.session_getter] = (
+    override_get_async_session)
 client = TestClient(main_app)
 
 ingredients = [
-    Ingredient(
-        ingredient_name="Мука пшеничная", ingredient_description="высший сорт"
-    ),
-    Ingredient(ingredient_name="Соль"),
-    Ingredient(ingredient_name="Сахар"),
-    Ingredient(
-        ingredient_name="Яйцо куриное", ingredient_description="0 категории"
-    ),
-    Ingredient(ingredient_name="Молоко"),
+    {"ingredient_name": "Test ingredient 1",
+     "ingredient_description": "Test ingredient description 1"
+     },
+    {"ingredient_name": "Test ingredient 2",
+     "ingredient_description": "Test ingredient description 2"
+     },
+    {"ingredient_name": "Test ingredient 3",
+     "ingredient_description": "Test ingredient description 3"
+     },
+]
+recipes = [
+    {"recipe_name": "Test recipe 1", "cooking_time": 25,
+     "recipe_description": "Test recipe description 1"
+     },
+    {"recipe_name": "Test recipe 2", "cooking_time": 50,
+     "recipe_description": "Test recipe description 2"
+     },
+]
+ingredients_to_recipes = [
+    # 1 рецепт
+    {"recipe_id": 1, "ingredient_id": 1, "quantity": "i1 test r1"},
+    {"recipe_id": 1, "ingredient_id": 2, "quantity": "i2 test r1"},
+    {"recipe_id": 1, "ingredient_id": 3, "quantity": "i3 test r1"},
+    {"recipe_id": 2, "ingredient_id": 3, "quantity": "i3 test r2"},
+    {"recipe_id": 2, "ingredient_id": 2, "quantity": "i2 test r2"},
 ]
 
 
@@ -41,9 +61,15 @@ ingredients = [
 async def prepare_database():
     async with engine_test.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+
+        await conn.execute(insert(Ingredient), ingredients)
+        await conn.execute(insert(Recipe), recipes)
+        await conn.execute(insert(IngredientsInRecipe), ingredients_to_recipes)
+
+        await conn.commit()
     yield
-    # async with engine_test.begin() as conn:
-    #     await conn.run_sync(Base.metadata.drop_all)
+    async with engine_test.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
 
 
 @pytest_asyncio.fixture(scope='session')
