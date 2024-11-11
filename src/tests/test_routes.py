@@ -1,6 +1,5 @@
 import pytest
 from httpx import AsyncClient
-from .conftest import ac
 
 
 @pytest.mark.asyncio
@@ -30,7 +29,7 @@ async def test_get_all_recipes(ac: AsyncClient):
 async def test_get_recipe_detail(ac: AsyncClient):
     # Тест проверки получения детальной информации об рецепте
     response = await ac.get("/recipes/1")
-    assert len(response.json()[0]['ingredients']) == 3
+    assert len(response.json()[0]["ingredients"]) == 3
     assert response.status_code == 200
 
 
@@ -44,23 +43,21 @@ async def test_post_recipe(ac: AsyncClient):
             "cooking_time": 100,
             "views": 500,
             "recipe_description": "Тест пройден!",
-            "ingredients": [
-                {
-                    "ingredient_id": 1,
-                    "quantity": "test quantity"
-
-                }
-            ]}
+            "ingredients": [{"ingredient_id": 1, "quantity": "test quantity"}],
+        },
     )
-    assert response.json()['recipe_name'] == 'Created recipe'
+    assert response.json()["recipe_name"] == "Created recipe"
 
 
 @pytest.mark.asyncio
 async def test_post_ingredient(ac: AsyncClient):
     # Тест проверки создания нового ингредиента
-    response = await ac.post("/ingredients", json={
-        "ingredient_name": "name for test",
-        "ingredient_description": "description for test"
-    })
-    assert response.json()['ingredient_name'] == 'name for test'
-    assert response.json()['ingredient_description'] == 'description for test'
+    response = await ac.post(
+        "/ingredients",
+        json={
+            "ingredient_name": "name for test",
+            "ingredient_description": "description for test",
+        },
+    )
+    assert response.json()["ingredient_name"] == "name for test"
+    assert response.json()["ingredient_description"] == "description for test"
