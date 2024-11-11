@@ -3,9 +3,9 @@ from typing import Annotated, List
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api.crud import recipe as recipe_crud
-from core.models import db_helper
-from core.schemas.recipe import RecipeCreate, RecipeDetail, RecipeRead
+from src.api.crud import recipe as recipe_crud
+from src.core.models import db_helper
+from src.core.schemas.recipe import RecipeCreate, RecipeDetail, RecipeRead
 
 recipe_route = APIRouter()
 

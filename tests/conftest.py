@@ -7,12 +7,12 @@ from sqlalchemy import insert
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.pool import NullPool
 
-from core.models.base import Base
-from core.models.db_helper import db_helper
-from core.models.ingredient import Ingredient
-from core.models.ingredient_in_recipe import IngredientsInRecipe
-from core.models.recipe import Recipe
-from main import main_app
+from src.core.models.base import Base
+from src.core.models.db_helper import db_helper
+from src.core.models.ingredient import Ingredient
+from src.core.models.ingredient_in_recipe import IngredientsInRecipe
+from src.core.models.recipe import Recipe
+from src.main import main_app
 
 DATABASE_URL_TEST = "postgresql+asyncpg://test:test@localhost:5432/test"
 engine_test = create_async_engine(

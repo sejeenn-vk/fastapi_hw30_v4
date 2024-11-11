@@ -33,4 +33,5 @@ class Settings(BaseSettings):
     db: DatabaseConfig
 
 
+print(Settings.model_config)
 settings = Settings()
