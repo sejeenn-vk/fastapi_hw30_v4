@@ -6,14 +6,8 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from alembic import context
-
-import sys
-print(sys.path)
-sys.path.append("/home/eugene/PycharmProjects/fastapi_hw30_v4")
-print(sys.path)
-
 from src.core.config import settings
-from src.core.models import Base
+from src.core.models.base import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
