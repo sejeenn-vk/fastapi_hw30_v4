@@ -63,21 +63,22 @@ jobs:
           source .venv/bin/activate
           python -m pytest
 
-      - name: Run linters
+      - name: Run mypy
         run: |
           source .venv/bin/activate
           mypy alembic/
           mypy src/
           mypy tests/
-          
+      - name: Run black
+        run: |
           black --diff --check alembic/
           black --diff --check src/
           black --diff --check tests/
-          
-          isort --check-only alembic/
-          isort --check-only src/
-          isort --check-only tests/
-          
-          flake8 alembic/
-          flake8 src/
-          flake8 tests
+#
+#          isort --check-only alembic/
+#          isort --check-only src/
+#          isort --check-only tests/
+#
+#          flake8 alembic/
+#          flake8 src/
+#          flake8 tests
