@@ -65,11 +65,12 @@ jobs:
         with:
           compose-file: "docker-compose.yaml"
 
+      #----------------------------------------------
       - name: Run tests
         run: |
           source .venv/bin/activate
           python -m pytest
-
+      #----------------------------------------------
       - name: Run mypy
         run: |
           source .venv/bin/activate
