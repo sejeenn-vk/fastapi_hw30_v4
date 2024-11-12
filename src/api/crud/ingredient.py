@@ -3,7 +3,7 @@ from typing import Sequence
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.core.models import Ingredient
+from src.core.models.ingredient import Ingredient
 from src.core.schemas.ingredient import IngredientCreate
 
 
