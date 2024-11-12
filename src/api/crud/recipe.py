@@ -3,9 +3,9 @@ from typing import Sequence
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.core.models.recipe import Recipe
 from src.core.models.ingredient import Ingredient
 from src.core.models.ingredient_in_recipe import IngredientsInRecipe
+from src.core.models.recipe import Recipe
 from src.core.schemas.recipe import RecipeCreate
 
 
