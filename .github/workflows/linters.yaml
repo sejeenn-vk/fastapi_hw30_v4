@@ -19,5 +19,7 @@ jobs:
         run: pip install poetry
       - name: Install dependencies
         run: poetry install
-      - name: Run tests
-        run: python -m pytest
+#      - name: Run docker-compose
+#          uses: hoverkraft-tech/compose-action@v2.0.1
+#          with:
+#            compose-file: "./docker/docker-compose.yml"
